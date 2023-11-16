@@ -1,19 +1,15 @@
-import { create } from "@/actions/create-board";
-import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Info } from "./_components/info";
+import { BoardList } from "./_components/board-list";
 
 const OrganizationIdPage = () => {
   return (
-    <div>
-      <form action={create}>
-        <input
-          id='title'
-          name='title'
-          required
-          placeholder='Enter a boarder title'
-          className='border-black border p-1'
-        />
-        <Button type='submit'>Submit</Button>
-      </form>
+    <div className='w-full mb-20'>
+      <Info />
+      <Separator className='my-4' />
+      <div className='px-2 md:px-4'>
+        <BoardList />
+      </div>
     </div>
   );
 };

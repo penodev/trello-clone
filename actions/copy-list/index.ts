@@ -68,7 +68,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Failed to copy list",
     };
   }
-  revalidatePath(`/organization/${boardId}`);
+  revalidatePath(`/board/${boardId}`);
   return { data: list };
 };
 

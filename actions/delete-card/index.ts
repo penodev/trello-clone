@@ -5,7 +5,7 @@ import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { DeleteList } from "./schema";
+import { DeleteCard } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -16,25 +16,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   const { id, boardId } = data;
 
-  let list;
+  let card;
 
   try {
-    list = await db.list.delete({
+    card = await db.card.delete({
       where: {
         id,
-        boardId,
-        board: {
-          orgId,
+        list: {
+          board: {
+            orgId,
+          },
         },
       },
     });
   } catch (error) {
     return {
-      error: "Failed to delete list",
+      error: "Failed to delete card",
     };
   }
   revalidatePath(`/board/${boardId}`);
-  return { data: list };
+  return { data: card };
 };
 
-export const deleteList = createSafeAction(DeleteList, handler);
+export const deleteCard = createSafeAction(DeleteCard, handler);
